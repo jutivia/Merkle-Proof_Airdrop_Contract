@@ -1,14 +1,14 @@
 {
     "0x30f9A9C1aA282508901b606DEA2D887D4dD072e8": {
         "address": "0x30f9A9C1aA282508901b606DEA2D887D4dD072e8",
-        "itemID": "2000000000"
+        "itemID": "20"
     },
     "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
         "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "itemID": "30000000"
+        "itemID": "30"
     },
     "dropDetails": {
         "contractAddress": "0xD650fd3Db89ABCfE8673F1943a662350887bd510",
-        "merkleroot": "0x747ab3e4ebd4439f6f4fae5fe19c115e284a0b6dd2daa947ed33adc56881997e"
+        "merkleroot": "0x7fae1da4525038afe7c84b844b91e18b75e663544baca65a280168b358db8ea6"
     }
 }

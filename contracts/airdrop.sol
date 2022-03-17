@@ -5,11 +5,9 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
  contract Airdrop{
     IERC20 Jupiter;
     bytes32 merkleRoot;
-    mapping(address => AddressAirdrop) addressAirdrops;
-    address JupiterAddress = 0xD650fd3Db89ABCfE8673F1943a662350887bd510;
-    struct AddressAirdrop {
-    bool claimed;
-}
+    address JupiterAddress = 0x13dc5fbd0045bffBE0D31CeDF3895B5b6d745366;
+    // address JupiterAddress = 0x5FbDB2315678afecb367f032d93F642f64180aa3;
+   mapping(address => bool) addressClaimed;
     event AddressClaim(address owner, uint amount);
     constructor(bytes32 _merkleRoot){
         Jupiter = IERC20(JupiterAddress);
@@ -20,17 +18,16 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
         uint256 _amount,
         bytes32[] calldata _merkleProof
     ) external {
-        AddressAirdrop storage drop = addressAirdrops[msg.sender];
-        require(!drop.claimed, "Airdrop has been claimed");
+        require(!addressClaimed[msg.sender], "Airdrop has been claimed");
         // Verify the merkle proof.
         bytes32 node = keccak256(abi.encodePacked(msg.sender, _amount));
         require(MerkleProof.verify(_merkleProof, merkleRoot, node), "MerkleDistributor: Invalid proof.");
 
         // Mark it claimed and send the token.
-        drop.claimed = true;
-        Jupiter.transfer(msg.sender, _amount);
+        addressClaimed[msg.sender] = true;
+        Jupiter.transfer(msg.sender, _amount* 10**18);
         //only emit when successful
-        emit AddressClaim( msg.sender, _amount);
+        emit AddressClaim( msg.sender, _amount* 10**18);
     }
     function checkTokenBalance () public view returns (uint256){
         return Jupiter.balanceOf(address(this));
